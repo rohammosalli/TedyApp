@@ -22,11 +22,66 @@
             </div>
         </div>
         <div id="bear" class="grid-100 bg-{{ saves.get('colors') }}">
+
             <div class="bear-body"><img src="/static/img/bear_body.svg" /></div>
+            {% if saves.get('footwear') %}
+              <div class="footwear"><img src="/static/img/bear_items_footwear-{{ saves['footwear'] }}.svg" alt="">
+              </div>
+            {% endif %}
+
+            {% if saves.get('pants') %}
+              <div class="pants"><img src="/static/img/bear_items_pants-{{ saves['pants'] }}.svg" alt="">
+              </div>
+            {% endif %}
+
+
+
+
+            {% if saves.get('shirts') %}
+              <div class="shirts"><img src="/static/img/bear_items_shirts-{{ saves['shirts'] }}.svg" alt="">
+              </div>
+            {% endif %}
+
+
+
+
+
             <div class="head"><img src="/static/img/bear_face.svg" /></div>
+
+            {% if saves.get('hat') %}
+              <div class="hat"><img src="/static/img/bear_items_hat-{{ saves['hat'] }}.svg" alt="">
+              </div>
+            {% endif %}
+
+
+            {% if saves.get('glasses') %}
+              <div class="glasses"><img src="/static/img/bear_items_glasses-{{ saves['glasses'] }}.svg" alt="">
+              </div>
+            {% endif %}
             <div class="nose"><img src="/static/img/bear_nose.svg" /></div>
         </div>
         <div class="items">
+          {% for category, choices in options.items() %}
+          {% if category != 'colors' %}
+            <div class="grid-100 row">
+              <div class="grid-20">
+                <p class="category-title">{{ category.title() }}</p>
+              </div>
+              <div class="grid-80">
+                <input type="radio" id="no_{{ category  }}_icon" name="{{ category  }}" value=""
+                {% if not saves.get(category) %}checked{% endif %} >
+                  <label for="no_{{ category }}_icon"><img src="/static/img/no-selection.svg" alt=""></label>
+
+                  {% for choice in choices %}
+                    <input type="radio" id="{{ category }}-{{ choice }}_icon" name="{{ category }}" value="{{ choice }}"
+                    {% if saves.get(category) == choice %}checked{% endif %} >
+                    <label for="{{ category }}-{{ choice }}_icon"><img src="/static/img/{{ category }}-{{ choice }}.svg" alt=""></label>
+                  {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% endfor %}
         </div>
     </div>
 </form>
