@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!--Build Area -->
+<form action="{{ url_for('save') }}" method="POST" class="wrap no-top">
+    <div class="grid-100 row">
+        <div class="grid-30">
+            <div class="title">
+                <input type="text" name="name" value="{{ saves.get('name', '') }}">
+            </div>
+        </div>
+        <div class="grid-70">
+            <div class="colors">
+              {% for color in options['colors'] %}
+                <input type="radio" id={{ color }} name="colors" value="{{ color }}"
+                {% if saves.get('colors') == color %} checked {% endif %}
+                >
+
+                  <label for="{{ color }}"></label>
+              {% endfor %}
+                <button class="btn">Update</button>
+            </div>
+        </div>
+        <div id="bear" class="grid-100 bg-{{ saves.get('colors') }}">
+            <div class="bear-body"><img src="/static/img/bear_body.svg" /></div>
+            <div class="head"><img src="/static/img/bear_face.svg" /></div>
+            <div class="nose"><img src="/static/img/bear_nose.svg" /></div>
+        </div>
+        <div class="items">
+        </div>
+    </div>
+</form>
+
+{% endblock %}
